@@ -1,11 +1,39 @@
-# AI-Powered Retail Demand Forecasting Copilot
+# AI Retail Demand Forecasting Copilot
 
-An AI-powered decision support system that forecasts product demand, identifies inventory risks, and generates actionable recommendations for retail planners and inventory managers.
+## Overview
 
-## Features
+AI-powered retail decision support system that:
 
-- Demand Forecasting
-- Inventory Risk Detection
-- Stockout & Overstock Alerts
-- AI-Generated Business Recommendations
-- Interactive Dashboard
+1. Forecasts future product demand
+2. Detects stockout and overstock risks
+3. Quantifies business impact
+4. Retrieves inventory policies using RAG
+5. Generates actionable recommendations
+
+## Architecture
+
+Historical Sales Data
+→ Feature Engineering
+→ Prophet + XGBoost Forecasting
+→ Ensemble Forecast
+→ Inventory Risk Engine
+→ Business Impact Metrics
+→ RAG Knowledge Retrieval
+→ AI Recommendation Engine
+→ Streamlit Dashboard
+
+## Technology Stack
+
+- Python
+- Pandas
+- Prophet
+- XGBoost
+- LangChain
+- ChromaDB
+- Sentence Transformers
+- Gemini
+- Streamlit
+
+## Status
+
+Project Initialization Complete

@@ -10,3 +10,6 @@ __pycache__/
 
 # Environment Variables
 .env
+
+data/processed/
+data/raw/

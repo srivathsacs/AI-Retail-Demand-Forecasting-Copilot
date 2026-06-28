@@ -1,15 +1,67 @@
+# ==========================
 # Virtual Environment
+# ==========================
+
 .venv/
+venv/
+env/
 
-# Python Cache
+# ==========================
+# Python
+# ==========================
+
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
 
-# VS Code
+# ==========================
+# IDE
+# ==========================
+
 .vscode/
+.idea/
 
+# ==========================
 # Environment Variables
+# ==========================
+
 .env
 
-data/processed/
+# ==========================
+# Generated Data
+# ==========================
+
 data/raw/
+data/processed/
+data/forecasts/
+
+# ==========================
+# Chroma Vector Database
+# ==========================
+
+chroma_db/
+
+# ==========================
+# Test / Coverage
+# ==========================
+
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ==========================
+# Jupyter
+# ==========================
+
+.ipynb_checkpoints/
+
+# ==========================
+# Operating System
+# ==========================
+
+.DS_Store
+Thumbs.db
+
+
+# Generated Forecast Outputs
+data/validation predictions/

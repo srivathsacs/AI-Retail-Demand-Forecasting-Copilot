@@ -2,56 +2,208 @@
 
 ## Overview
 
-AI-powered retail decision support system that:
+AI Retail Demand Forecasting Copilot is an end-to-end AI decision support system for retail inventory planning.
 
-1. Forecasts future product demand
-2. Detects stockout and overstock risks
-3. Quantifies business impact
-4. Retrieves inventory policies using RAG
-5. Generates actionable recommendations
+The project combines demand forecasting, inventory analytics, Retrieval-Augmented Generation (RAG), and Generative AI to help retailers make better inventory decisions.
 
-## Architecture
+The project follows an **experiment-first, production-second** workflow, where every feature is:
 
-Historical Sales Data
-→ Feature Engineering
-→ Prophet + XGBoost Forecasting
-→ Ensemble Forecast
-→ Inventory Risk Engine
-→ Business Impact Metrics
-→ RAG Knowledge Retrieval
-→ AI Recommendation Engine
-→ Streamlit Dashboard
+1. Developed and validated in the `experiments/` folder.
+2. Migrated into modular production code under `src/`.
+3. Documented before moving to the next development stage.
 
-## Technology Stack
+---
+
+# Planned System Architecture
+
+```
+Raw Retail Data
+        │
+        ▼
+Dataset Construction
+        │
+        ▼
+Demand Forecasting
+   ├── Prophet
+   └── XGBoost
+        │
+        ▼
+Inventory Analytics
+        │
+        ▼
+Business Metrics
+        │
+        ▼
+Knowledge Retrieval (RAG)
+        │
+        ▼
+AI Recommendation Engine
+        │
+        ▼
+Streamlit Application
+```
+
+---
+
+# Current Project Status
+
+| Stage | Status |
+|--------|--------|
+| Dataset Construction | Complete |
+| Exploratory Data Analysis | Complete |
+| Prophet Forecasting | Complete |
+| XGBoost Forecasting | Next Stage |
+
+---
+
+# Current Production Structure
+
+```
+src/
+├── analysis/
+├── data/
+├── features/
+├── forecasting/
+│   ├── prophet/
+│   └── xgboost/
+├── inventory/
+├── metrics/
+├── rag/
+├── recommendation/
+├── config.py
+└── main.py
+```
+
+---
+
+# Current Features
+
+- Production dataset construction pipeline
+- Centralized project configuration
+- Modular Prophet forecasting package
+- Time-series cross-validation
+- Forecast evaluation
+- Forecast visualization
+- Automatic forecast export
+- Production-ready documentation
+
+---
+
+# Technology Stack
+
+## Programming
 
 - Python
+
+## Data Engineering
+
 - Pandas
+- DuckDB
+
+## Forecasting
+
 - Prophet
 - XGBoost
+
+## Artificial Intelligence
+
+- Google Gemini
 - LangChain
+
+## Vector Database
+
 - ChromaDB
+
+## Embeddings
+
 - Sentence Transformers
-- Gemini
+- all-MiniLM-L6-v2
+
+## Frontend
+
 - Streamlit
 
-## Status
+---
 
-## Status
+# Repository Structure
 
-### Completed
-- Project setup and environment configuration
-- Data ingestion using DuckDB
-- Category-level demand dataset creation
+```
+data/
+docs/
+experiments/
+src/
+README.md
+requirements.txt
+```
 
-### In Progress
-- Time series analysis
-- Forecasting model development
+---
 
-### Next Steps
-- Prophet forecasting baseline
-- XGBoost forecasting model
-- Ensemble forecasting
-- Inventory risk engine
-- RAG knowledge retrieval
-- Recommendation engine
-- Streamlit dashboard
+# Documentation
+
+Project documentation is available under:
+
+```
+docs/
+```
+
+Current documentation includes:
+
+- Production stage documentation
+- Project architecture
+
+---
+
+# Running the Project
+
+From the project root:
+
+```bash
+python src/main.py
+```
+
+---
+
+# Development Workflow
+
+Every feature follows the same development lifecycle.
+
+```
+Experiment
+      │
+      ▼
+Validation
+      │
+      ▼
+Production Implementation
+      │
+      ▼
+Documentation
+```
+
+---
+
+# Roadmap
+
+## Next Development Stages
+
+- XGBoost Forecasting
+- Inventory Analytics
+- Business Metrics
+- Retrieval-Augmented Generation (RAG)
+- AI Recommendation Engine
+- Streamlit Integration
+
+## Future Enhancements
+
+- Logging framework
+- Unit testing
+- Integration testing
+- Continuous Integration (CI)
+- Docker support
+- Cloud deployment
+
+---
+
+# License
+
+This project is intended for educational and portfolio purposes.

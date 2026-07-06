@@ -47,12 +47,12 @@ Streamlit Application
 
 # Current Project Status
 
-| Stage | Status |
-|--------|--------|
-| Dataset Construction | Complete |
+| Stage                     | Status   |
+| ------------------------- | -------- |
+| Dataset Construction      | Complete |
 | Exploratory Data Analysis | Complete |
-| Prophet Forecasting | Complete |
-| XGBoost Forecasting | Next Stage |
+| Prophet Forecasting       | Complete |
+| XGBoost Forecasting       | Complete |
 
 ---
 
@@ -78,14 +78,16 @@ src/
 
 # Current Features
 
-- Production dataset construction pipeline
-- Centralized project configuration
-- Modular Prophet forecasting package
-- Time-series cross-validation
-- Forecast evaluation
-- Forecast visualization
-- Automatic forecast export
-- Production-ready documentation
+* Production dataset construction pipeline
+* Centralized project configuration
+* Modular Prophet forecasting package
+* Modular XGBoost forecasting package
+* Rolling time-series cross-validation
+* Holdout forecasting evaluation
+* Forecast performance metrics
+* Forecast visualization
+* Automatic forecast export
+* Production-ready documentation
 
 ---
 
@@ -93,35 +95,35 @@ src/
 
 ## Programming
 
-- Python
+* Python
 
 ## Data Engineering
 
-- Pandas
-- DuckDB
+* Pandas
+* DuckDB
 
 ## Forecasting
 
-- Prophet
-- XGBoost
+* Prophet
+* XGBoost
 
 ## Artificial Intelligence
 
-- Google Gemini
-- LangChain
+* Google Gemini
+* LangChain
 
 ## Vector Database
 
-- ChromaDB
+* ChromaDB
 
 ## Embeddings
 
-- Sentence Transformers
-- all-MiniLM-L6-v2
+* Sentence Transformers
+* all-MiniLM-L6-v2
 
 ## Frontend
 
-- Streamlit
+* Streamlit
 
 ---
 
@@ -138,6 +140,102 @@ requirements.txt
 
 ---
 
+
+---
+
+# Prerequisites
+
+Before running the project, ensure the following are installed:
+
+* Python 3.11 or later
+* Git
+
+A virtual environment is recommended for dependency isolation.
+
+---
+
+# Installation
+
+Clone the repository:
+
+```bash
+git clone <repository-url>
+cd AI-Retail-Demand-Forecasting-Copilot
+```
+
+Create and activate a virtual environment.
+
+### Windows
+
+```bash
+python -m venv .venv
+.venv\Scripts\activate
+```
+
+### macOS / Linux
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+Install the required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+# Dataset Setup
+
+Download the **Corporación Favorita Grocery Sales Forecasting** dataset from Kaggle.
+
+Place the required files inside:
+
+```text
+data/raw/
+```
+
+Required files:
+
+* `train.csv`
+* `items.csv`
+
+---
+
+# Running the Project
+
+From the project root, run:
+
+```bash
+python src/main.py
+```
+
+The production pipeline will automatically execute the following stages:
+
+1. Dataset Construction
+2. Prophet Forecasting
+3. XGBoost Forecasting
+
+The console displays forecasting progress, cross-validation metrics, holdout evaluation metrics, and generates forecast visualizations.
+
+---
+
+# Generated Outputs
+
+Running the project automatically creates:
+
+* Processed category sales dataset
+* Prophet holdout predictions
+* Prophet cross-validation metrics
+* XGBoost holdout predictions
+* XGBoost cross-validation metrics
+
+Generated files are stored under the project's `data/` directory.
+
+
+
 # Documentation
 
 Project documentation is available under:
@@ -148,8 +246,8 @@ docs/
 
 Current documentation includes:
 
-- Production stage documentation
-- Project architecture
+* Production stage documentation
+* Project architecture
 
 ---
 
@@ -186,21 +284,20 @@ Documentation
 
 ## Next Development Stages
 
-- XGBoost Forecasting
-- Inventory Analytics
-- Business Metrics
-- Retrieval-Augmented Generation (RAG)
-- AI Recommendation Engine
-- Streamlit Integration
+* Inventory Analytics
+* Business Metrics
+* Retrieval-Augmented Generation (RAG)
+* AI Recommendation Engine
+* Streamlit Integration
 
 ## Future Enhancements
 
-- Logging framework
-- Unit testing
-- Integration testing
-- Continuous Integration (CI)
-- Docker support
-- Cloud deployment
+* Logging framework
+* Unit testing
+* Integration testing
+* Continuous Integration (CI)
+* Docker support
+* Cloud deployment
 
 ---
 

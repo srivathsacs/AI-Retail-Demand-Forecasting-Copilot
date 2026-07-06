@@ -34,6 +34,8 @@ __pycache__/
 data/raw/
 data/processed/
 data/forecasts/
+data/future_promos/
+data/validation predictions/
 
 # ==========================
 # Chroma Vector Database
@@ -61,7 +63,3 @@ htmlcov/
 
 .DS_Store
 Thumbs.db
-
-
-# Generated Forecast Outputs
-data/validation predictions/

@@ -33,12 +33,14 @@ ITEMS_DATA = RAW_DATA_DIR / "items.csv"
 CATEGORY_SALES_DATA = PROCESSED_DATA_DIR / "sales_by_category.csv"
 
 # =============================================================================
-# Prophet Configuration
+# Forecast Configuration
 # =============================================================================
 
 PROPHET_STORE_ID = 44
+XGBOOST_STORE_ID = 44
 
 PROPHET_CATEGORY = "GROCERY I"
+XGBOOST_CATEGORY = "GROCERY I"
 
 TRAIN_TEST_SPLIT_DATE = "2017-07-01"
 
@@ -52,4 +54,16 @@ PROPHET_HOLDOUT_PREDICTIONS = (
 
 PROPHET_CV_METRICS = (
     FORECAST_DIR / "prophet_cv_metrics.csv"
+)
+
+# =============================================================================
+# XGBoost Outputs
+# =============================================================================
+
+XGBOOST_HOLDOUT_PREDICTIONS = (
+    FORECAST_DIR / "xgboost_holdout_predictions.csv"
+)
+
+XGBOOST_CV_METRICS = (
+    FORECAST_DIR / "xgboost_cv_metrics.csv"
 )

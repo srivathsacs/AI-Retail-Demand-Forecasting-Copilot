@@ -1,3 +1,4 @@
+````markdown
 # AI Retail Demand Forecasting Copilot
 
 ## Overview
@@ -47,12 +48,13 @@ Streamlit Application
 
 # Current Project Status
 
-| Stage                     | Status   |
-| ------------------------- | -------- |
-| Dataset Construction      | Complete |
+| Stage | Status |
+|--------|--------|
+| Dataset Construction | Complete |
 | Exploratory Data Analysis | Complete |
-| Prophet Forecasting       | Complete |
-| XGBoost Forecasting       | Complete |
+| Prophet Forecasting | Complete |
+| XGBoost Forecasting | Complete |
+| Inventory Analytics | Complete |
 
 ---
 
@@ -78,16 +80,20 @@ src/
 
 # Current Features
 
-* Production dataset construction pipeline
-* Centralized project configuration
-* Modular Prophet forecasting package
-* Modular XGBoost forecasting package
-* Rolling time-series cross-validation
-* Holdout forecasting evaluation
-* Forecast performance metrics
-* Forecast visualization
-* Automatic forecast export
-* Production-ready documentation
+- Production dataset construction pipeline
+- Centralized project configuration
+- Modular Prophet forecasting package
+- Modular XGBoost forecasting package
+- Production Inventory Analytics package
+- Inventory position calculation
+- Inventory risk assessment
+- Structured inventory analysis output
+- Rolling time-series cross-validation
+- Holdout forecasting evaluation
+- Forecast performance metrics
+- Forecast visualization
+- Automatic forecast export
+- Production-ready documentation
 
 ---
 
@@ -95,35 +101,35 @@ src/
 
 ## Programming
 
-* Python
+- Python
 
 ## Data Engineering
 
-* Pandas
-* DuckDB
+- Pandas
+- DuckDB
 
 ## Forecasting
 
-* Prophet
-* XGBoost
+- Prophet
+- XGBoost
 
 ## Artificial Intelligence
 
-* Google Gemini
-* LangChain
+- Google Gemini
+- LangChain
 
 ## Vector Database
 
-* ChromaDB
+- ChromaDB
 
 ## Embeddings
 
-* Sentence Transformers
-* all-MiniLM-L6-v2
+- Sentence Transformers
+- all-MiniLM-L6-v2
 
 ## Frontend
 
-* Streamlit
+- Streamlit
 
 ---
 
@@ -140,6 +146,24 @@ requirements.txt
 
 ---
 
+# Dataset
+
+This project uses the **Corporación Favorita Grocery Sales Forecasting** dataset from Kaggle.
+
+The dataset is not included in this repository.
+
+Download the required dataset from Kaggle and place the CSV files in:
+
+```text
+data/raw/
+```
+
+Required files:
+
+- `train.csv`
+- `items.csv`
+
+All processed datasets, forecasts, and other generated outputs are created locally during project execution.
 
 ---
 
@@ -147,8 +171,8 @@ requirements.txt
 
 Before running the project, ensure the following are installed:
 
-* Python 3.11 or later
-* Git
+- Python 3.11 or later
+- Git
 
 A virtual environment is recommended for dependency isolation.
 
@@ -199,8 +223,23 @@ data/raw/
 
 Required files:
 
-* `train.csv`
-* `items.csv`
+- `train.csv`
+- `items.csv`
+
+---
+
+# Documentation
+
+Project documentation is available under:
+
+```text
+docs/
+```
+
+Current documentation includes:
+
+- Production stage documentation
+- Project architecture
 
 ---
 
@@ -212,13 +251,24 @@ From the project root, run:
 python src/main.py
 ```
 
-The production pipeline will automatically execute the following stages:
+The production pipeline automatically executes:
 
 1. Dataset Construction
 2. Prophet Forecasting
 3. XGBoost Forecasting
+4. Inventory Analytics
 
-The console displays forecasting progress, cross-validation metrics, holdout evaluation metrics, and generates forecast visualizations.
+The console displays:
+
+- Cross-validation metrics
+- Holdout evaluation metrics
+- Inventory position
+- Inventory gap
+- Stockout risk
+- Overstock risk
+- Risk severity
+
+Forecast visualizations are generated automatically during execution.
 
 ---
 
@@ -226,38 +276,14 @@ The console displays forecasting progress, cross-validation metrics, holdout eva
 
 Running the project automatically creates:
 
-* Processed category sales dataset
-* Prophet holdout predictions
-* Prophet cross-validation metrics
-* XGBoost holdout predictions
-* XGBoost cross-validation metrics
+- Processed category sales dataset
+- Prophet holdout predictions
+- Prophet cross-validation metrics
+- XGBoost holdout predictions
+- XGBoost cross-validation metrics
+- Inventory analytics results
 
-Generated files are stored under the project's `data/` directory.
-
-
-
-# Documentation
-
-Project documentation is available under:
-
-```
-docs/
-```
-
-Current documentation includes:
-
-* Production stage documentation
-* Project architecture
-
----
-
-# Running the Project
-
-From the project root:
-
-```bash
-python src/main.py
-```
+Generated files are stored locally under the project's `data/` directory.
 
 ---
 
@@ -284,23 +310,23 @@ Documentation
 
 ## Next Development Stages
 
-* Inventory Analytics
-* Business Metrics
-* Retrieval-Augmented Generation (RAG)
-* AI Recommendation Engine
-* Streamlit Integration
+- Business Metrics
+- Retrieval-Augmented Generation (RAG)
+- AI Recommendation Engine
+- Streamlit Application
 
 ## Future Enhancements
 
-* Logging framework
-* Unit testing
-* Integration testing
-* Continuous Integration (CI)
-* Docker support
-* Cloud deployment
+- Logging framework
+- Unit testing
+- Integration testing
+- Continuous Integration (CI)
+- Docker support
+- Cloud deployment
 
 ---
 
 # License
 
 This project is intended for educational and portfolio purposes.
+````

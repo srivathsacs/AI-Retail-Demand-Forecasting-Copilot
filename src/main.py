@@ -7,9 +7,12 @@ Purpose:
 
 from config import (
     CATEGORY_SALES_DATA,
+    CURRENT_INVENTORY,
     ITEMS_DATA,
+    LEAD_TIME_DAYS,
     PROPHET_CATEGORY,
     PROPHET_STORE_ID,
+    SAFETY_STOCK,
     TRAIN_DATA,
     XGBOOST_CATEGORY,
     XGBOOST_STORE_ID,
@@ -26,6 +29,12 @@ from forecasting.xgboost.evaluator import XGBoostEvaluator
 from forecasting.xgboost.pipeline import XGBoostPipeline
 from forecasting.xgboost.validator import XGBoostValidator
 from forecasting.xgboost.visualizer import XGBoostVisualizer
+
+from inventory import (
+    InventoryAnalysis,
+    InventoryPosition,
+    InventoryRisk,
+)
 
 
 def stage_1() -> None:
@@ -93,7 +102,7 @@ def stage_3() -> None:
     )
 
 
-def stage_4() -> None:
+def stage_4():
     """Run the XGBoost forecasting pipeline."""
 
     print("\n========== Stage 4 : XGBoost Forecasting ==========")
@@ -140,6 +149,47 @@ def stage_4() -> None:
         title=f"Store {XGBOOST_STORE_ID} - {XGBOOST_CATEGORY}",
     )
 
+    return predictions
+
+
+def stage_5(forecast_demand: float) -> InventoryAnalysis:
+    """Run the Inventory Analytics stage."""
+
+    print("\n========== Stage 5 : Inventory Analytics ==========")
+
+    inventory = InventoryPosition(
+        current_inventory=CURRENT_INVENTORY,
+        forecast_demand=forecast_demand,
+        safety_stock=SAFETY_STOCK,
+        lead_time_days=LEAD_TIME_DAYS,
+    )
+
+    inventory.calculate()
+
+    risk = InventoryRisk(
+        projected_inventory=inventory.projected_inventory,
+        inventory_gap=inventory.inventory_gap,
+        safety_stock=SAFETY_STOCK,
+    )
+
+    risk.evaluate()
+
+    analysis = InventoryAnalysis(
+        projected_inventory=inventory.projected_inventory,
+        inventory_gap=inventory.inventory_gap,
+        stockout_risk=risk.stockout_risk,
+        overstock_risk=risk.overstock_risk,
+        risk_severity=risk.risk_severity,
+    )
+
+    print(f"Projected Inventory : {analysis.projected_inventory:.2f}")
+    print(f"Inventory Gap       : {analysis.inventory_gap:.2f}")
+    print(f"Stockout Risk       : {analysis.stockout_risk}")
+    print(f"Overstock Risk      : {analysis.overstock_risk}")
+    print(f"Risk Severity       : {analysis.risk_severity}")
+
+    return analysis
+
 
 def main() -> None:
 
@@ -147,7 +197,14 @@ def main() -> None:
 
     stage_3()
 
-    stage_4()
+    predictions = stage_4()
+
+    forecast_demand = predictions["prediction"].sum()
+
+    analysis = stage_5(forecast_demand)
+
+    # Reserved for downstream stages.
+    _ = analysis
 
 
 if __name__ == "__main__":

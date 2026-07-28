@@ -13,6 +13,7 @@ from config import (
     PROPHET_CATEGORY,
     PROPHET_STORE_ID,
     SAFETY_STOCK,
+    SELLING_PRICE,
     TRAIN_DATA,
     XGBOOST_CATEGORY,
     XGBOOST_STORE_ID,
@@ -34,6 +35,11 @@ from inventory import (
     InventoryAnalysis,
     InventoryPosition,
     InventoryRisk,
+)
+
+from metrics import (
+    BusinessAnalysis,
+    BusinessMetrics,
 )
 
 
@@ -191,6 +197,59 @@ def stage_5(forecast_demand: float) -> InventoryAnalysis:
     return analysis
 
 
+def stage_6(
+    analysis: InventoryAnalysis,
+    forecast_demand: float,
+) -> BusinessAnalysis:
+    """Run the Business Metrics stage."""
+
+    print("\n========== Stage 6 : Business Metrics ==========")
+
+    daily_demand = forecast_demand / 45
+
+    lead_time_demand = (
+        daily_demand
+        * LEAD_TIME_DAYS
+    )
+
+    reorder_point = (
+        lead_time_demand
+        + SAFETY_STOCK
+    )
+
+    metrics = BusinessMetrics(
+        current_inventory=CURRENT_INVENTORY,
+        forecast_demand=forecast_demand,
+        projected_inventory=analysis.projected_inventory,
+        reorder_point=reorder_point,
+        selling_price=SELLING_PRICE,
+        stockout_risk=analysis.stockout_risk,
+        overstock_risk=analysis.overstock_risk,
+        safety_stock_breach=(
+            analysis.projected_inventory
+            < SAFETY_STOCK
+        ),
+    )
+
+    metrics.calculate()
+
+    business = BusinessAnalysis(
+        potential_lost_sales=metrics.potential_lost_sales,
+        revenue_risk=metrics.revenue_risk,
+        inventory_at_risk=metrics.inventory_at_risk,
+        recommended_order_quantity=metrics.recommended_order_quantity,
+        inventory_health_score=metrics.inventory_health_score,
+    )
+
+    print(f"Potential Lost Sales      : {business.potential_lost_sales:.2f}")
+    print(f"Revenue Risk              : {business.revenue_risk:.2f}")
+    print(f"Inventory At Risk         : {business.inventory_at_risk:.2f}")
+    print(f"Recommended Order Quantity: {business.recommended_order_quantity:.2f}")
+    print(f"Inventory Health Score    : {business.inventory_health_score:.0f}")
+
+    return business
+
+
 def main() -> None:
 
     stage_1()
@@ -201,10 +260,14 @@ def main() -> None:
 
     forecast_demand = predictions["prediction"].sum()
 
-    analysis = stage_5(forecast_demand)
+    inventory = stage_5(forecast_demand)
 
-    # Reserved for downstream stages.
-    _ = analysis
+    business = stage_6(
+        inventory,
+        forecast_demand,
+    )
+
+    _ = business
 
 
 if __name__ == "__main__":

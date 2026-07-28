@@ -93,10 +93,27 @@ The project follows an **experiment-first, production-second** workflow, where e
                      +-----------+-------------+
                                  |
                                  v
-                     Forecast Visualizations
+                     Forecast Output Files
                                  |
                                  v
-                     Forecast Output Files
+                  +-------------------------------+
+                  | Inventory Analytics           |
+                  +---------------+---------------+
+                                  |
+                                  v
+                  +-------------------------------+
+                  | InventoryAnalysis             |
+                  +---------------+---------------+
+                                  |
+                                  v
+                  +-------------------------------+
+                  | Business Metrics              |
+                  +---------------+---------------+
+                                  |
+                                  v
+                  +-------------------------------+
+                  | BusinessAnalysis              |
+                  +-------------------------------+
 ```
 
 ---
@@ -119,7 +136,16 @@ src/
 │   └── xgboost/
 │
 ├── inventory/
+│   ├── __init__.py
+│   ├── inventory_analysis.py
+│   ├── inventory_position.py
+│   └── risk_engine.py
+│
 ├── metrics/
+│   ├── __init__.py
+│   ├── business_analysis.py
+│   └── business_metrics.py
+│
 ├── rag/
 ├── recommendation/
 │
@@ -175,6 +201,57 @@ Creates forecast visualizations.
 
 ---
 
+# Inventory Analytics Package Design
+
+```
+inventory/
+├── inventory_analysis.py
+├── inventory_position.py
+└── risk_engine.py
+```
+
+## Responsibilities
+
+### inventory_position.py
+
+Calculates projected inventory and inventory gap.
+
+---
+
+### risk_engine.py
+
+Evaluates stockout risk, overstock risk, and overall inventory risk severity.
+
+---
+
+### inventory_analysis.py
+
+Represents the reusable output of the Inventory Analytics stage for downstream consumers.
+
+---
+
+# Business Metrics Package Design
+
+```
+metrics/
+├── business_analysis.py
+└── business_metrics.py
+```
+
+## Responsibilities
+
+### business_metrics.py
+
+Calculates business metrics from inventory analysis.
+
+---
+
+### business_analysis.py
+
+Represents the reusable output of the Business Metrics stage for downstream consumers.
+
+---
+
 # Configuration
 
 All project configuration is centralized in:
@@ -187,6 +264,8 @@ Configuration includes:
 
 - File paths
 - Forecast settings
+- Inventory settings
+- Business metrics settings
 - Input datasets
 - Output locations
 
@@ -213,16 +292,16 @@ The production codebase follows these principles:
 |--------|--------|
 | Dataset Construction | Complete |
 | Prophet Forecasting | Complete |
-| XGBoost Forecasting | Next Stage |
+| XGBoost Forecasting | Complete |
+| Inventory Analytics | Complete |
+| Business Metrics | Complete |
 
 ---
 
 # Future Architecture
 
-The following modules will be integrated after the forecasting layer is completed:
+The following modules will be integrated after the Business Metrics layer is completed:
 
-- Inventory Analytics
-- Business Metrics
 - Retrieval-Augmented Generation (RAG)
 - Gemini Recommendation Engine
 - Streamlit Application

@@ -113,6 +113,21 @@ The project follows an **experiment-first, production-second** workflow, where e
                                   v
                   +-------------------------------+
                   | BusinessAnalysis              |
+                  +---------------+---------------+
+                                  |
+                                  v
+                  +-------------------------------+
+                  | Knowledge Retrieval (RAG)     |
+                  +---------------+---------------+
+                                  |
+                                  v
+                  +-------------------------------+
+                  | Recommendation Engine         |
+                  +---------------+---------------+
+                                  |
+                                  v
+                  +-------------------------------+
+                  | Recommendation                |
                   +-------------------------------+
 ```
 
@@ -147,7 +162,19 @@ src/
 │   └── business_metrics.py
 │
 ├── rag/
+│   ├── __init__.py
+│   ├── chunker.py
+│   ├── document_loader.py
+│   ├── indexer.py
+│   ├── knowledge_retriever.py
+│   ├── retriever.py
+│   └── vector_store.py
+│
 ├── recommendation/
+│   ├── __init__.py
+│   ├── prompt_builder.py
+│   ├── recommendation.py
+│   └── recommendation_engine.py
 │
 ├── config.py
 └── main.py
@@ -252,6 +279,85 @@ Represents the reusable output of the Business Metrics stage for downstream cons
 
 ---
 
+# Retrieval-Augmented Generation Package Design
+
+```
+rag/
+├── document_loader.py
+├── chunker.py
+├── vector_store.py
+├── retriever.py
+├── knowledge_retriever.py
+└── indexer.py
+```
+
+## Responsibilities
+
+### document_loader.py
+
+Loads Markdown documents from the knowledge base.
+
+---
+
+### chunker.py
+
+Splits Markdown documents into semantic chunks.
+
+---
+
+### vector_store.py
+
+Generates embeddings and manages the Chroma vector database.
+
+---
+
+### retriever.py
+
+Performs semantic similarity search.
+
+---
+
+### knowledge_retriever.py
+
+Provides a production interface for retrieving relevant knowledge.
+
+---
+
+### indexer.py
+
+Builds and updates the vector database from the knowledge base.
+
+---
+
+# Recommendation Engine Package Design
+
+```
+recommendation/
+├── recommendation.py
+├── prompt_builder.py
+└── recommendation_engine.py
+```
+
+## Responsibilities
+
+### recommendation.py
+
+Represents the reusable recommendation output for downstream consumers.
+
+---
+
+### prompt_builder.py
+
+Builds the final prompt from business analysis and retrieved knowledge.
+
+---
+
+### recommendation_engine.py
+
+Coordinates knowledge retrieval, prompt generation, Gemini interaction, and returns a structured `Recommendation`.
+
+---
+
 # Configuration
 
 All project configuration is centralized in:
@@ -266,6 +372,8 @@ Configuration includes:
 - Forecast settings
 - Inventory settings
 - Business metrics settings
+- RAG settings
+- Recommendation settings
 - Input datasets
 - Output locations
 
@@ -295,13 +403,13 @@ The production codebase follows these principles:
 | XGBoost Forecasting | Complete |
 | Inventory Analytics | Complete |
 | Business Metrics | Complete |
+| Retrieval-Augmented Generation (RAG) | Complete |
+| AI Recommendation Engine | Complete |
 
 ---
 
 # Future Architecture
 
-The following modules will be integrated after the Business Metrics layer is completed:
+The following module remains to be integrated:
 
-- Retrieval-Augmented Generation (RAG)
-- Gemini Recommendation Engine
 - Streamlit Application

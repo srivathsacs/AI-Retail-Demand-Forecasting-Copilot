@@ -42,11 +42,13 @@ from metrics import (
     BusinessMetrics,
 )
 
+from recommendation import RecommendationEngine
+
 
 def stage_1() -> None:
     """Build the processed dataset."""
 
-    print("\n========== Stage 1 : Dataset Construction ==========")
+    print("\n========== Dataset Construction ==========")
 
     builder = DatasetBuilder()
 
@@ -62,7 +64,7 @@ def stage_1() -> None:
 def stage_3() -> None:
     """Run the Prophet forecasting pipeline."""
 
-    print("\n========== Stage 3 : Prophet Forecasting ==========")
+    print("\n========== Prophet Forecasting ==========")
 
     pipeline = ProphetPipeline(CATEGORY_SALES_DATA)
 
@@ -111,7 +113,7 @@ def stage_3() -> None:
 def stage_4():
     """Run the XGBoost forecasting pipeline."""
 
-    print("\n========== Stage 4 : XGBoost Forecasting ==========")
+    print("\n========== XGBoost Forecasting ==========")
 
     pipeline = XGBoostPipeline(CATEGORY_SALES_DATA)
 
@@ -161,7 +163,7 @@ def stage_4():
 def stage_5(forecast_demand: float) -> InventoryAnalysis:
     """Run the Inventory Analytics stage."""
 
-    print("\n========== Stage 5 : Inventory Analytics ==========")
+    print("\n========== Inventory Analytics ==========")
 
     inventory = InventoryPosition(
         current_inventory=CURRENT_INVENTORY,
@@ -203,7 +205,7 @@ def stage_6(
 ) -> BusinessAnalysis:
     """Run the Business Metrics stage."""
 
-    print("\n========== Stage 6 : Business Metrics ==========")
+    print("\n========== Business Metrics ==========")
 
     daily_demand = forecast_demand / 45
 
@@ -250,6 +252,31 @@ def stage_6(
     return business
 
 
+def stage_8(
+    inventory: InventoryAnalysis,
+    business: BusinessAnalysis,
+) -> None:
+    """Run the AI Recommendation Engine."""
+
+    print("\n========== AI Recommendation Engine ==========")
+
+    engine = RecommendationEngine()
+
+    recommendation = engine.generate(
+        inventory=inventory,
+        business=business,
+    )
+
+    print("\nExecutive Summary\n")
+    print(recommendation.summary)
+
+    print("\nRecommendation\n")
+    print(recommendation.recommendation)
+
+    print("\nBusiness Rationale\n")
+    print(recommendation.rationale)
+
+
 def main() -> None:
 
     stage_1()
@@ -267,7 +294,10 @@ def main() -> None:
         forecast_demand,
     )
 
-    _ = business
+    stage_8(
+        inventory,
+        business,
+    )
 
 
 if __name__ == "__main__":

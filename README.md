@@ -56,6 +56,8 @@ Streamlit Application
 | XGBoost Forecasting | Complete |
 | Inventory Analytics | Complete |
 | Business Metrics | Complete |
+| Retrieval-Augmented Generation (RAG) | Complete |
+| AI Recommendation Engine | Complete |
 
 ---
 
@@ -87,6 +89,16 @@ src/
 - Modular XGBoost forecasting package
 - Production Inventory Analytics package
 - Production Business Metrics package
+- Production Retrieval-Augmented Generation package
+- Production AI Recommendation Engine
+- Knowledge base document loading
+- Semantic document chunking
+- Chroma vector database integration
+- Sentence Transformer embeddings
+- Semantic knowledge retrieval
+- Prompt builder for AI recommendations
+- Google Gemini integration
+- Structured AI recommendation output
 - Inventory position calculation
 - Inventory risk assessment
 - Business metrics calculation
@@ -232,6 +244,18 @@ Required files:
 
 ---
 
+# Environment Variables
+
+This stage uses **Google Gemini** for AI recommendation generation.
+
+Create a `.env` file in the project root:
+
+```text
+GOOGLE_API_KEY=your_api_key_here
+```
+
+---
+
 # Documentation
 
 Project documentation is available under:
@@ -262,21 +286,19 @@ The production pipeline automatically executes:
 3. XGBoost Forecasting
 4. Inventory Analytics
 5. Business Metrics
+6. Retrieval-Augmented Generation (RAG)
+7. AI Recommendation Engine
 
 The console displays:
 
 - Cross-validation metrics
 - Holdout evaluation metrics
-- Projected inventory
-- Inventory gap
-- Stockout risk
-- Overstock risk
-- Risk severity
-- Potential lost sales
-- Revenue risk
-- Inventory at risk
-- Recommended order quantity
-- Inventory health score
+- Inventory analytics
+- Business metrics
+- Retrieved knowledge
+- AI-generated executive summary
+- AI recommendations
+- Business rationale
 
 Forecast visualizations are generated automatically during execution.
 
@@ -293,8 +315,11 @@ Running the project automatically creates:
 - XGBoost cross-validation metrics
 - Inventory analytics results
 - Business metrics results
+- Chroma vector database
+- Indexed knowledge base
+- AI-generated recommendations
 
-Generated files are stored locally under the project's `data/` directory.
+Generated files are stored locally under the project's `data/` directory and `chroma_db/`.
 
 ---
 
@@ -319,10 +344,8 @@ Documentation
 
 # Roadmap
 
-## Next Development Stages
+## Next Development Stage
 
-- Retrieval-Augmented Generation (RAG)
-- AI Recommendation Engine
 - Streamlit Application
 
 ## Future Enhancements

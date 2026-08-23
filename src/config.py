@@ -59,6 +59,20 @@ LEAD_TIME_DAYS = 30
 SELLING_PRICE = 1.0
 
 # =============================================================================
+# RAG Configuration
+# =============================================================================
+
+KNOWLEDGE_BASE_DIR = PROJECT_ROOT / "knowledge_base"
+
+CHROMA_DB_DIR = PROJECT_ROOT / "chroma_db"
+
+RAG_COLLECTION_NAME = "inventory_knowledge_base"
+
+GEMINI_MODEL = "gemini-2.5-flash"
+
+RAG_TOP_K = 5
+
+# =============================================================================
 # Prophet Outputs
 # =============================================================================
 

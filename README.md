@@ -1,4 +1,3 @@
-````markdown
 # AI Retail Demand Forecasting Copilot
 
 ## Overview

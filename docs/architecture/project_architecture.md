@@ -10,7 +10,7 @@ The project follows an **experiment-first, production-second** workflow, where e
 
 ---
 
-# Planned System Architecture
+# Production System Architecture
 
 ```
                         +----------------------+
@@ -52,7 +52,7 @@ The project follows an **experiment-first, production-second** workflow, where e
                                   |
                                   v
                   +-------------------------------+
-                  | Gemini Recommendation Engine  |
+                  | AI Recommendation Engine      |
                   +---------------+---------------+
                                   |
                                   v
@@ -66,69 +66,55 @@ The project follows an **experiment-first, production-second** workflow, where e
 # Current Production Architecture
 
 ```
-                        +----------------------+
-                        |   Raw Retail Data    |
-                        +----------+-----------+
-                                   |
-                                   v
-                  +-------------------------------+
-                  | Dataset Construction          |
-                  +---------------+---------------+
-                                  |
-                                  v
-                  +-------------------------------+
-                  | Processed Sales Dataset       |
-                  +---------------+---------------+
-                                  |
-                                  v
-                     +-------------------------+
-                     | Prophet Forecasting     |
-                     +-----------+-------------+
-                                 |
-                     +-----------+-------------+
-                     |                         |
-                     v                         v
-             Cross Validation          Holdout Evaluation
-                     |                         |
-                     +-----------+-------------+
-                                 |
-                                 v
-                     Forecast Output Files
-                                 |
-                                 v
-                  +-------------------------------+
-                  | Inventory Analytics           |
-                  +---------------+---------------+
-                                  |
-                                  v
-                  +-------------------------------+
-                  | InventoryAnalysis             |
-                  +---------------+---------------+
-                                  |
-                                  v
-                  +-------------------------------+
-                  | Business Metrics              |
-                  +---------------+---------------+
-                                  |
-                                  v
-                  +-------------------------------+
-                  | BusinessAnalysis              |
-                  +---------------+---------------+
-                                  |
-                                  v
-                  +-------------------------------+
-                  | Knowledge Retrieval (RAG)     |
-                  +---------------+---------------+
-                                  |
-                                  v
-                  +-------------------------------+
-                  | Recommendation Engine         |
-                  +---------------+---------------+
-                                  |
-                                  v
-                  +-------------------------------+
-                  | Recommendation                |
-                  +-------------------------------+
+                        User
+                          │
+                          ▼
+               +-----------------------+
+               | Streamlit Application |
+               +-----------+-----------+
+                           │
+                Run Analysis│
+                           ▼
+            +----------------------------+
+            | Dataset Construction       |
+            +-------------+--------------+
+                          │
+                          ▼
+            +----------------------------+
+            | Prophet Forecasting        |
+            +-------------+--------------+
+                          │
+                          ▼
+            +----------------------------+
+            | XGBoost Forecasting        |
+            +-------------+--------------+
+                          │
+                          ▼
+            +----------------------------+
+            | Inventory Analytics        |
+            +-------------+--------------+
+                          │
+                          ▼
+            +----------------------------+
+            | Business Metrics           |
+            +-------------+--------------+
+                          │
+                          ▼
+              InventoryAnalysis
+              BusinessAnalysis
+                          │
+               (Session State)
+                          │
+                          ▼
+            +----------------------------+
+            | AI Recommendation Engine   |
+            +-------------+--------------+
+                          │
+                          ▼
+                 Recommendation
+                          │
+                          ▼
+                    Streamlit UI
 ```
 
 ---
@@ -136,246 +122,104 @@ The project follows an **experiment-first, production-second** workflow, where e
 # Current Source Structure
 
 ```
+app.py
+
 src/
 ├── analysis/
 ├── data/
 ├── features/
 ├── forecasting/
 │   ├── prophet/
-│   │   ├── model.py
-│   │   ├── pipeline.py
-│   │   ├── validator.py
-│   │   ├── evaluator.py
-│   │   └── visualizer.py
-│   │
 │   └── xgboost/
-│
 ├── inventory/
-│   ├── __init__.py
-│   ├── inventory_analysis.py
-│   ├── inventory_position.py
-│   └── risk_engine.py
-│
 ├── metrics/
-│   ├── __init__.py
-│   ├── business_analysis.py
-│   └── business_metrics.py
-│
 ├── rag/
-│   ├── __init__.py
-│   ├── chunker.py
-│   ├── document_loader.py
-│   ├── indexer.py
-│   ├── knowledge_retriever.py
-│   ├── retriever.py
-│   └── vector_store.py
-│
 ├── recommendation/
-│   ├── __init__.py
-│   ├── prompt_builder.py
-│   ├── recommendation.py
-│   └── recommendation_engine.py
-│
 ├── config.py
 └── main.py
 ```
 
 ---
 
-# Forecasting Package Design
+# Production Packages
 
-Each forecasting model follows the same architecture.
+## Dataset Construction
+
+Responsible for building the processed retail dataset used throughout the application.
+
+---
+
+## Forecasting
+
+Implements both Prophet and XGBoost forecasting pipelines with validation, evaluation, visualization, and forecast export.
+
+---
+
+## Inventory Analytics
+
+Calculates projected inventory, inventory gap, stockout risk, overstock risk, and overall inventory severity.
+
+Produces:
 
 ```
-forecasting/
-└── <model>/
-    ├── model.py
-    ├── pipeline.py
-    ├── validator.py
-    ├── evaluator.py
-    └── visualizer.py
+InventoryAnalysis
 ```
 
-## Responsibilities
-
-### model.py
-
-Encapsulates the forecasting model.
-
 ---
 
-### pipeline.py
+## Business Metrics
 
-Coordinates the complete forecasting workflow.
+Transforms inventory analytics into business-ready operational metrics.
 
----
-
-### validator.py
-
-Performs model validation using time-series cross-validation.
-
----
-
-### evaluator.py
-
-Calculates forecasting performance metrics.
-
----
-
-### visualizer.py
-
-Creates forecast visualizations.
-
----
-
-# Inventory Analytics Package Design
+Produces:
 
 ```
-inventory/
-├── inventory_analysis.py
-├── inventory_position.py
-└── risk_engine.py
+BusinessAnalysis
 ```
 
-## Responsibilities
+---
 
-### inventory_position.py
+## Retrieval-Augmented Generation (RAG)
 
-Calculates projected inventory and inventory gap.
+Indexes the inventory knowledge base and retrieves relevant business knowledge using semantic search.
+
+Produces:
+
+- Retrieved knowledge context
 
 ---
 
-### risk_engine.py
+## AI Recommendation Engine
 
-Evaluates stockout risk, overstock risk, and overall inventory risk severity.
+Combines:
 
----
+- InventoryAnalysis
+- BusinessAnalysis
+- Retrieved knowledge
 
-### inventory_analysis.py
+to generate structured AI recommendations using Google Gemini.
 
-Represents the reusable output of the Inventory Analytics stage for downstream consumers.
-
----
-
-# Business Metrics Package Design
+Produces:
 
 ```
-metrics/
-├── business_analysis.py
-└── business_metrics.py
+Recommendation
+├── summary
+├── recommendation
+└── rationale
 ```
 
-## Responsibilities
-
-### business_metrics.py
-
-Calculates business metrics from inventory analysis.
-
 ---
 
-### business_analysis.py
+## Streamlit Application
 
-Represents the reusable output of the Business Metrics stage for downstream consumers.
+Provides the production user interface.
 
----
+Responsibilities include:
 
-# Retrieval-Augmented Generation Package Design
-
-```
-rag/
-├── document_loader.py
-├── chunker.py
-├── vector_store.py
-├── retriever.py
-├── knowledge_retriever.py
-└── indexer.py
-```
-
-## Responsibilities
-
-### document_loader.py
-
-Loads Markdown documents from the knowledge base.
-
----
-
-### chunker.py
-
-Splits Markdown documents into semantic chunks.
-
----
-
-### vector_store.py
-
-Generates embeddings and manages the Chroma vector database.
-
----
-
-### retriever.py
-
-Performs semantic similarity search.
-
----
-
-### knowledge_retriever.py
-
-Provides a production interface for retrieving relevant knowledge.
-
----
-
-### indexer.py
-
-Builds and updates the vector database from the knowledge base.
-
----
-
-# Recommendation Engine Package Design
-
-```
-recommendation/
-├── recommendation.py
-├── prompt_builder.py
-└── recommendation_engine.py
-```
-
-## Responsibilities
-
-### recommendation.py
-
-Represents the reusable recommendation output for downstream consumers.
-
----
-
-### prompt_builder.py
-
-Builds the final prompt from business analysis and retrieved knowledge.
-
----
-
-### recommendation_engine.py
-
-Coordinates knowledge retrieval, prompt generation, Gemini interaction, and returns a structured `Recommendation`.
-
----
-
-# Configuration
-
-All project configuration is centralized in:
-
-```
-src/config.py
-```
-
-Configuration includes:
-
-- File paths
-- Forecast settings
-- Inventory settings
-- Business metrics settings
-- RAG settings
-- Recommendation settings
-- Input datasets
-- Output locations
+- Running the forecasting pipeline
+- Displaying analysis results
+- Managing session state
+- Generating multiple AI recommendations without rerunning forecasting
 
 ---
 
@@ -405,11 +249,12 @@ The production codebase follows these principles:
 | Business Metrics | Complete |
 | Retrieval-Augmented Generation (RAG) | Complete |
 | AI Recommendation Engine | Complete |
+| Streamlit Application | Complete |
 
 ---
 
-# Future Architecture
+# Project Status
 
-The following module remains to be integrated:
+The complete end-to-end production pipeline has been implemented.
 
-- Streamlit Application
+Future work will focus on engineering enhancements such as testing, logging, CI/CD, containerization, and cloud deployment.

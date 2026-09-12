@@ -5,7 +5,7 @@
 
 AI Retail Demand Forecasting Copilot is an end-to-end AI decision support system for retail inventory planning.
 
-The project combines demand forecasting, inventory analytics, Retrieval-Augmented Generation (RAG), and Generative AI to help retailers make better inventory decisions.
+The project combines demand forecasting, inventory analytics, Retrieval-Augmented Generation (RAG), Generative AI, and an interactive Streamlit application to help retailers make better inventory decisions.
 
 The project follows an **experiment-first, production-second** workflow, where every feature is:
 
@@ -58,12 +58,15 @@ Streamlit Application
 | Business Metrics | Complete |
 | Retrieval-Augmented Generation (RAG) | Complete |
 | AI Recommendation Engine | Complete |
+| Streamlit Application | Complete |
 
 ---
 
 # Current Production Structure
 
 ```
+app.py
+
 src/
 ├── analysis/
 ├── data/
@@ -91,6 +94,7 @@ src/
 - Production Business Metrics package
 - Production Retrieval-Augmented Generation package
 - Production AI Recommendation Engine
+- Interactive Streamlit application
 - Knowledge base document loading
 - Semantic document chunking
 - Chroma vector database integration
@@ -99,6 +103,7 @@ src/
 - Prompt builder for AI recommendations
 - Google Gemini integration
 - Structured AI recommendation output
+- Session-based recommendation workflow
 - Inventory position calculation
 - Inventory risk assessment
 - Business metrics calculation
@@ -152,6 +157,7 @@ src/
 # Repository Structure
 
 ```
+app.py
 data/
 docs/
 experiments/
@@ -273,13 +279,15 @@ Current documentation includes:
 
 # Running the Project
 
-From the project root, run:
+## Command-line Pipeline
+
+Run the complete production pipeline from the command line:
 
 ```bash
 python src/main.py
 ```
 
-The production pipeline automatically executes:
+The command-line pipeline executes:
 
 1. Dataset Construction
 2. Prophet Forecasting
@@ -301,6 +309,26 @@ The console displays:
 - Business rationale
 
 Forecast visualizations are generated automatically during execution.
+
+---
+
+## Streamlit Application
+
+Launch the interactive web application:
+
+```bash
+streamlit run app.py
+```
+
+The Streamlit application provides:
+
+- Interactive inventory decision-support dashboard
+- One-click execution of the complete forecasting pipeline
+- Current Analysis dashboard
+- AI-powered inventory recommendations
+- Custom recommendation prompts
+- Multiple recommendation generation without rerunning forecasting
+- Session-based workflow for improved responsiveness
 
 ---
 
@@ -344,9 +372,9 @@ Documentation
 
 # Roadmap
 
-## Next Development Stage
+## Current Status
 
-- Streamlit Application
+The complete production application has been implemented.
 
 ## Future Enhancements
 

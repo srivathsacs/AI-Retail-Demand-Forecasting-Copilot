@@ -14,3 +14,15 @@ class PredictionResponse(BaseModel):
     risk_severity: str
     recommended_order_quantity: float
     inventory_health_score: float
+
+
+class RecommendationRequest(BaseModel):
+    store_id: int
+    category: str
+    user_prompt: str | None = None
+
+
+class RecommendationResponse(BaseModel):
+    summary: str
+    recommendation: str
+    rationale: str

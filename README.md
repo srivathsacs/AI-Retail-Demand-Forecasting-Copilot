@@ -59,24 +59,10 @@ PHASE 2 — PRODUCTION ENGINEERING & MLOps
 9A — Automated Testing & CI          Complete
    |
    v
-9B — FastAPI Model Serving           Complete
-   |
-   v
-9C — Docker Containerization         Planned
-   |
-   v
-9D — Kubernetes Deployment           Planned
-   |
-   v
-9E — MLflow Tracking                 Planned
-   |
-   v
-9F — Monitoring & Observability      Planned
+9B — FastAPI Model Serving            Complete
 ```
 
 The second phase extends the completed ML application. It does not change the original Stage 01–09 project history.
-
----
 
 # Original System Architecture
 
@@ -795,7 +781,6 @@ docs/
 - FastAPI service boundary
 - Source structure
 - CI architecture
-- Production engineering roadmap
 
 ---
 
@@ -820,89 +805,6 @@ docs/
 | Forecasting API | Complete |
 | Recommendation API | Complete |
 | Streamlit → FastAPI Integration | Complete |
-| Docker Containerization | Planned |
-| Kubernetes Deployment | Planned |
-| MLflow Tracking | Planned |
-| Monitoring & Observability | Planned |
-| Automated Deployment / CD | Planned |
-
----
-
-# Production Engineering Roadmap
-
-## 9C — Docker Containerization
-
-**Status: Planned**
-
-Planned focus:
-
-- Dockerfile
-- Reproducible application image
-- Local container execution
-- Container health checks
-
----
-
-## 9D — Kubernetes Deployment
-
-**Status: Planned**
-
-The current direction is to use a local Kubernetes environment such as `kind` before considering cloud deployment.
-
-Planned focus:
-
-- Kubernetes Deployment
-- Kubernetes Service
-- Configuration
-- Health probes
-- Readiness probes
-- Local deployment
-
----
-
-## 9E — MLflow Tracking
-
-**Status: Planned**
-
-Planned focus:
-
-- Experiment tracking
-- Model metrics
-- Model artifacts
-- Model versioning
-
----
-
-## 9F — Monitoring & Observability
-
-**Status: Planned**
-
-Planned focus:
-
-- Application logging
-- API request monitoring
-- Health monitoring
-- Basic model-serving metrics
-
-Prometheus/Grafana may be considered later if they provide clear value.
-
----
-
-## Future Deployment
-
-Automated deployment/CD is currently planned but not implemented.
-
-Potential future extensions include:
-
-- Automated deployment
-- Container registry integration
-- Container security scanning
-- Kubernetes autoscaling
-- Simple cloud deployment
-
-These are future engineering enhancements and are not represented as completed capabilities.
-
----
 
 # Design Principles
 
@@ -943,7 +845,7 @@ Generative AI Recommendations
 Streamlit
 ```
 
-The production engineering extension adds:
+The completed production engineering work adds:
 
 ```text
 Automated Testing
@@ -953,19 +855,9 @@ GitHub Actions CI
 FastAPI Model Serving
         ↓
 Streamlit → API Integration
-        ↓
-Docker
-        ↓
-Kubernetes
-        ↓
-MLflow
-        ↓
-Monitoring
 ```
 
-The first two post-Stage 9 engineering layers are complete today: **automated testing/CI and FastAPI model serving**. The remaining infrastructure and MLOps layers are planned as the next development stages.
-
----
+The README reflects completed and validated capabilities only.
 
 # License
 
